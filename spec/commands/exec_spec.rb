@@ -852,7 +852,9 @@ __FILE__: #{path.to_s.inspect}
         file = bundled_app("file_that_bundle_execs.rb")
         create_file(file, <<-RB)
           #!#{Gem.ruby}
-          puts `#{system_bundle_bin_path} exec echo foo`
+          Bundler.with_original_env do
+            puts `bundle exec echo foo`
+          end
         RB
         file.chmod(0o777)
         bundle! "exec #{file}", :system_bundler => true

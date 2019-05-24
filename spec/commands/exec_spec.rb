@@ -838,7 +838,7 @@ __FILE__: #{path.to_s.inspect}
   context "nested bundle exec" do
     let(:system_gems_to_install) { super() << :bundler }
 
-    context "with shared gems disabled" do
+    context "when bundle in a local path" do
       before do
         gemfile <<-G
           source "file://#{gem_repo1}"
@@ -847,7 +847,7 @@ __FILE__: #{path.to_s.inspect}
         bundle :install, :system_bundler => true, :path => "vendor/bundler"
       end
 
-      it "overrides disable_shared_gems so bundler can be found", :ruby_repo, :rubygems => ">= 2.6.2" do
+      it "correctly shells out", :ruby_repo, :rubygems => ">= 2.6.2" do
         system_gems :bundler
         file = bundled_app("file_that_bundle_execs.rb")
         create_file(file, <<-RB)

@@ -264,6 +264,10 @@ else
     lib.vendor_lib = "lib/bundler/vendor/molinillo"
   end
 
+  # We currently cherry-pick changes to use `require_relative` internally
+  # instead of regular `require`. These changes have not yet been backported
+  # because the upstream libraries still supports MRI 1.8, which does not have
+  # `require_relative`.
   desc "Vendor a specific version of thor"
   Automatiek::RakeTask.new("thor") do |lib|
     lib.download = { :github => "https://github.com/erikhuda/thor" }
@@ -272,6 +276,10 @@ else
     lib.vendor_lib = "lib/bundler/vendor/thor"
   end
 
+  # We currently cherry-pick changes to use `require_relative` internally
+  # instead of regular `require`. These changes have already landed to fileutils
+  # master, but have not yet been released, so we cherry-pick them for the time
+  # being.
   desc "Vendor a specific version of fileutils"
   Automatiek::RakeTask.new("fileutils") do |lib|
     lib.download = { :github => "https://github.com/ruby/fileutils" }
@@ -280,6 +288,8 @@ else
     lib.vendor_lib = "lib/bundler/vendor/fileutils"
   end
 
+  # We currently cherry-pick an unmerged PR on top of the upstream version:
+  # https://github.com/drbrain/net-http-persistent/pull/90.
   desc "Vendor a specific version of net-http-persistent"
   Automatiek::RakeTask.new("net-http-persistent") do |lib|
     lib.download = { :github => "https://github.com/drbrain/net-http-persistent" }

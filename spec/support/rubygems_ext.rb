@@ -8,8 +8,7 @@ module Spec
   module Rubygems
     DEPS = begin
       {
-        # artifice doesn't support rack 2.x now.
-        "rack" => "< 2.0",
+        "rack" => "~> 2.0",
         "rack-test" => "~> 1.1",
         "compact_index" => "~> 0.11.0",
         "sinatra" => "~> 1.4.7",

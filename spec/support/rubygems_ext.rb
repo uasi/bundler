@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require "rubygems/user_interaction"
-require "support/path"
-require "fileutils"
+require_relative "path"
 
 module Spec
   module Rubygems
@@ -50,7 +49,7 @@ module Spec
       reqs.map! {|name, req| "'#{name}:#{req}'" }
       deps = reqs.concat(no_reqs).join(" ")
       gem = Spec::Path.ruby_core? ? ENV["BUNDLE_GEM"] : "#{Gem.ruby} -S gem"
-      cmd = "#{gem} install #{deps} --no-document --conservative"
+      cmd = "#{gem} install #{deps} --no-document"
       puts cmd
       system(cmd) || raise("Installing gems #{deps} for the tests to use failed!")
     end
